@@ -2,10 +2,12 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 
-import Container from "@/components/container";
 import Link from "next/link";
-import { PlusIcon } from "lucide-react";
+import Container from "@/components/container";
+import TableContent from "./components/table-content";
 import { Button } from "@/components/ui/button";
+
+import { PlusIcon } from "lucide-react";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -18,18 +20,20 @@ export default async function DashboardPage() {
 
   return (
     <Container>
-      <div className="">
+      <div className="mt-2">
         <p>Bem-vindo, {firstName}!</p>
 
-        <div className="flex w-full flex-col">
-          <h2>Chamados</h2>
-          <Button className="" size="icon" variant="ghost">
-            <Link className="" href="/dashboard/">
+        <div className="my-8 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Chamados</h2>
+          <Button className="flex w-fit px-4" size="icon">
+            <Link href="/dashboard/new" className="flex items-center gap-2">
               <PlusIcon size="16" />
               Abrir chamado
             </Link>
           </Button>
         </div>
+
+        <TableContent />
       </div>
     </Container>
   );
