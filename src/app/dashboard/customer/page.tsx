@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 
+import prisma from "@/lib/prisma";
+
 import Link from "next/link";
 import Container from "@/components/container";
 import CustomerCard from "./components/customer-card";
@@ -16,6 +18,12 @@ export default async function CustomerPage() {
   if (!session || !session.user) {
     redirect("/");
   }
+
+  const customers = await prisma.customer.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  });
 
   return (
     <Container>
@@ -34,11 +42,17 @@ export default async function CustomerPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          <CustomerCard />
-          <CustomerCard />
-          <CustomerCard />
+          {customers.map((customer) => (
+            <CustomerCard key={customer.id} customer={customer} />
+          ))}
         </div>
       </section>
+
+      {customers.length === 0 && (
+        <p className="text-center italic text-muted-foreground">
+          Você ainda não possui clientes cadastrados.
+        </p>
+      )}
     </Container>
   );
 }
