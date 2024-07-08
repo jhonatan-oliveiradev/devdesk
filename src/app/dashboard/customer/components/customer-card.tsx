@@ -1,14 +1,14 @@
 "use client";
 
-import { api } from "@/lib/api";
-import { formatPhoneNumber } from "@/utils/format-phone";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { formatPhoneNumber } from "@/utils/format-phone";
+import { api } from "@/lib/api";
 
 import { CustomerModel } from "@/utils/customer.type";
 
 import CustomerFormModal from "./customer-modal";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,20 +25,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
-import {
-  AlertOctagon,
-  Check,
-  Edit2Icon,
-  FileWarningIcon,
-  Trash2Icon,
-  X,
-} from "lucide-react";
+import { AlertOctagon, Check, Edit2Icon, Trash2Icon, X } from "lucide-react";
 
 const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
-  const router = useRouter();
-  const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast();
 
   const handleDeleteCustomer = async () => {
     try {
@@ -51,8 +46,16 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
       router.refresh();
     } catch (err) {
       console.error(err, "Failed to delete customer");
+      toast({
+        variant: "destructive",
+        title: "Ops! Algo não saiu bem...",
+        description: "Houve um problema ao tentar excluir.",
+      });
     } finally {
       setIsDeleting(false);
+      toast({
+        description: "Cliente excluído com sucesso!",
+      });
     }
   };
 
@@ -65,8 +68,16 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
 
       router.refresh();
       setIsEditing(false);
+      toast({
+        description: "Cliente atualizado com sucesso!",
+      });
     } catch (err) {
       console.error(err, "Failed to update customer");
+      toast({
+        variant: "destructive",
+        title: "Ops! Algo não saiu bem...",
+        description: "Houve um problema ao tentar atualizar.",
+      });
     }
   };
 

@@ -7,6 +7,7 @@ import Header from "@/components/header";
 import "./globals.css";
 import { AuthProvider } from "@/providers/auth";
 import { CustomerProvider } from "@/contexts/customer-context";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +33,8 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               <Header />
-              {children}
+              <main>{children}</main>
+              <Toaster />
             </ThemeProvider>
           </CustomerProvider>
         </AuthProvider>
