@@ -152,7 +152,9 @@ const CustomerForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit">Salvar</Button>
+        <Button type="submit" className="w-full lg:w-fit">
+          Salvar
+        </Button>
       </form>
     </Form>
   );

@@ -1,17 +1,35 @@
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma";
+
+import InnerTableBody from "./inner-table-body";
+
 import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { FileIcon, Trash2Icon } from "lucide-react";
 
-const TableContent = () => {
+const TableContent = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user) {
+    redirect("/");
+  }
+
+  const tickets = await prisma.ticket.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    include: {
+      customer: true,
+    },
+  });
+
   return (
     <Table className="min-w-full">
       <TableCaption className="text-xs italic text-muted-foreground">
@@ -25,27 +43,29 @@ const TableContent = () => {
           <TableHead className="text-right">#</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell className="font-medium">Mercado Silva</TableCell>
-          <TableCell>01/07/2024</TableCell>
-          <TableCell>
-            <Badge variant="success">Aberto</Badge>
-          </TableCell>
-          <TableCell className="flex items-center justify-end gap-2 text-right">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="bg-blue-600 text-white hover:bg-blue-600/80 hover:text-white"
+
+      {tickets.length === 0 ? (
+        <TableBody>
+          <TableRow>
+            <td
+              colSpan={4}
+              className="px-2 py-4 text-center text-muted-foreground"
             >
-              <FileIcon size="16" />
-            </Button>
-            <Button size="icon">
-              <Trash2Icon size="16" />
-            </Button>
-          </TableCell>
-        </TableRow>
-      </TableBody>
+              Nenhum chamado encontrado.
+            </td>
+          </TableRow>
+        </TableBody>
+      ) : (
+        <TableBody>
+          {tickets.map((ticket) => (
+            <InnerTableBody
+              key={ticket.id}
+              ticket={ticket}
+              customer={ticket.customer}
+            />
+          ))}
+        </TableBody>
+      )}
     </Table>
   );
 };

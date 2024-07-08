@@ -39,13 +39,18 @@ const CustomerFormModal = ({
           </DialogDescription>
         </DialogHeader>
         <CustomerForm customer={customer} onSubmit={handleSubmit} />
-        <DialogFooter className="sm:justify-end">
+        {/* <DialogFooter className="relative sm:justify-end">
           <DialogClose asChild>
-            <Button type="button" variant="secondary" onClick={onClose}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={onClose}
+              className="absolute -top-[52px]"
+            >
               Fechar
             </Button>
           </DialogClose>
-        </DialogFooter>
+        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );

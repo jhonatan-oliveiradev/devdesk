@@ -5,6 +5,7 @@ import { CustomerModel } from "@/utils/customer.type";
 import CustomerForm from "./customer-form";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormWrapper = ({ userId }: { userId: string }) => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const FormWrapper = ({ userId }: { userId: string }) => {
     createdAt: null,
     updatedAt: null,
   });
+  const { toast } = useToast();
 
   const handleSubmit = async (data: any) => {
     try {
@@ -38,8 +40,17 @@ const FormWrapper = ({ userId }: { userId: string }) => {
 
       router.replace("/dashboard/customer");
       router.refresh();
+
+      toast({
+        description: "Cliente cadastrado com sucesso!",
+      });
     } catch (error) {
       console.error("Failed to save customer", error);
+      toast({
+        variant: "destructive",
+        title: "Ops! Algo não saiu bem...",
+        description: "Houve um problema ao tentar cadastrar.",
+      });
     }
   };
 

@@ -8,6 +8,7 @@ import TableContent from "./components/table-content";
 import { Button } from "@/components/ui/button";
 
 import { PlusIcon } from "lucide-react";
+import prisma from "@/lib/prisma";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -17,6 +18,15 @@ export default async function DashboardPage() {
   }
 
   const firstName = session.user.name?.split(" ")[0] ?? "";
+
+  const tickets = await prisma.ticket.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    include: {
+      customer: true,
+    },
+  });
 
   return (
     <Container>

@@ -140,11 +140,11 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
           </DialogHeader>
           <DialogFooter className="flex justify-end gap-2">
             <DialogClose asChild>
-              <Button variant="outline">
+              <Button variant="outline" size="icon">
                 <X size="14" />
               </Button>
             </DialogClose>
-            <Button onClick={handleDeleteCustomer}>
+            <Button onClick={handleDeleteCustomer} size="icon">
               <Check size="14" />
             </Button>
           </DialogFooter>
