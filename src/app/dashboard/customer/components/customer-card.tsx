@@ -1,5 +1,14 @@
 "use client";
 
+import { api } from "@/lib/api";
+import { formatPhoneNumber } from "@/utils/format-phone";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { CustomerModel } from "@/utils/customer.type";
+
+import CustomerFormModal from "./customer-modal";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,23 +16,33 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { api } from "@/lib/api";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
-import { CustomerModel } from "@/utils/customer.type";
-import { formatPhoneNumber } from "@/utils/format-phone";
-
-import { Edit2Icon, Trash2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import CustomerFormModal from "./customer-modal";
+import {
+  AlertOctagon,
+  Check,
+  Edit2Icon,
+  FileWarningIcon,
+  Trash2Icon,
+  X,
+} from "lucide-react";
 
 const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDeleteCustomer = async () => {
     try {
-      const response = await api.delete("/api/customer", {
+      await api.delete("/api/customer", {
         params: {
           id: customer.id,
         },
@@ -32,12 +51,14 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
       router.refresh();
     } catch (err) {
       console.error(err, "Failed to delete customer");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
   const handleUpdateCustomer = async (data: CustomerModel) => {
     try {
-      const response = await api.put("/api/customer", {
+      await api.put("/api/customer", {
         ...data,
         id: customer.id,
       });
@@ -81,7 +102,7 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
           </div>
         </CardContent>
         <CardFooter className="flex h-full w-full items-end justify-end">
-          <Button size="icon" onClick={handleDeleteCustomer}>
+          <Button size="icon" onClick={() => setIsDeleting(true)}>
             <Trash2Icon size="16" />
           </Button>
         </CardFooter>
@@ -94,6 +115,30 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
           onSubmit={handleUpdateCustomer}
         />
       )}
+
+      <Dialog open={isDeleting} onOpenChange={setIsDeleting}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex gap-2">
+              <AlertOctagon className="h-4 w-4 text-primary" />
+              Confirmar Exclusão
+            </DialogTitle>
+            <DialogDescription>
+              Tem certeza que deseja excluir o cliente: {customer.name}?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex justify-end gap-2">
+            <DialogClose asChild>
+              <Button variant="outline">
+                <X size="14" />
+              </Button>
+            </DialogClose>
+            <Button onClick={handleDeleteCustomer}>
+              <Check size="14" />
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

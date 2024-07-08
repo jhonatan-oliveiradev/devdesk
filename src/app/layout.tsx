@@ -6,6 +6,7 @@ import Header from "@/components/header";
 
 import "./globals.css";
 import { AuthProvider } from "@/providers/auth";
+import { CustomerProvider } from "@/contexts/customer-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,15 +24,17 @@ export default function RootLayout({
     <html lang="pt-br" suppressHydrationWarning>
       <body className={inter.className}>
         <AuthProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Header />
-            {children}
-          </ThemeProvider>
+          <CustomerProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+              {children}
+            </ThemeProvider>
+          </CustomerProvider>
         </AuthProvider>
       </body>
     </html>

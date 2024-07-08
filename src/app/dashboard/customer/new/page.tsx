@@ -7,7 +7,7 @@ import Container from "@/components/container";
 
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import CustomerForm from "../components/customer-form";
+import FormWrapper from "../components/form-wrapper";
 
 export default async function NewCustomerPage() {
   const session = await getServerSession(authOptions);
@@ -28,7 +28,7 @@ export default async function NewCustomerPage() {
           </Button>
         </div>
         <h2 className="mb-8 text-2xl font-bold">Novo cliente</h2>
-        <CustomerForm userId={session.user.id} />
+        <FormWrapper userId={session.user.id} />
       </section>
     </Container>
   );

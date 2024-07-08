@@ -35,10 +35,10 @@ const schema = z.object({
       );
     },
     {
-      message: "O telefone deve ser parecido com isto: (99) 99999-9999",
+      message: "O telefone deve se parecer com isto: (99) 99999-9999",
     },
   ),
-  address: z.string().min(5, "O endereço é obrigatório."),
+  address: z.string(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -47,16 +47,16 @@ const CustomerForm = ({
   customer,
   onSubmit,
 }: {
-  customer: CustomerModel;
+  customer?: CustomerModel;
   onSubmit: (data: FormData) => void;
 }) => {
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: customer.name,
-      email: customer.email,
-      phone: customer.phone,
-      address: customer.address || "",
+      name: customer?.name || "",
+      email: customer?.email || "",
+      phone: customer?.phone || "",
+      address: customer?.address || "",
     },
   });
 
@@ -152,7 +152,7 @@ const CustomerForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit">Atualizar</Button>
+        <Button type="submit">Salvar</Button>
       </form>
     </Form>
   );

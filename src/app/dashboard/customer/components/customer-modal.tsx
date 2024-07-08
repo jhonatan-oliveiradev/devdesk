@@ -20,6 +20,15 @@ const CustomerFormModal = ({
   onClose: () => void;
   onSubmit: (data: any) => void;
 }) => {
+  const handleSubmit = async (data: any) => {
+    await onSubmit({
+      ...data,
+      id: customer.id,
+      userId: customer.userId,
+    });
+    onClose();
+  };
+
   return (
     <Dialog open onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
@@ -29,7 +38,7 @@ const CustomerFormModal = ({
             Atualize as informações do cliente abaixo.
           </DialogDescription>
         </DialogHeader>
-        <CustomerForm customer={customer} onSubmit={onSubmit} />
+        <CustomerForm customer={customer} onSubmit={handleSubmit} />
         <DialogFooter className="sm:justify-end">
           <DialogClose asChild>
             <Button type="button" variant="secondary" onClick={onClose}>
