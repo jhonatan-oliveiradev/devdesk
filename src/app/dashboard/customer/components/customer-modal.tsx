@@ -1,15 +1,14 @@
-import { Button } from "@/components/ui/button";
+import { CustomerModel } from "@/utils/customer.type";
+
+import CustomerForm from "./customer-form";
+
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { CustomerModel } from "@/utils/customer.type";
-import CustomerForm from "./customer-form";
 
 const CustomerFormModal = ({
   customer,

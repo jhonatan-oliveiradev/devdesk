@@ -1,15 +1,17 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import type { Metadata } from "next";
 
 import Header from "@/components/header";
 
-import "./globals.css";
 import { AuthProvider } from "@/providers/auth";
 import { CustomerProvider } from "@/contexts/customer-context";
 import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
+import { ModalProvider } from "@/providers/modal";
+
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Dev Desk - Gerenciamento",
@@ -23,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={nunito.className}>
         <AuthProvider>
           <CustomerProvider>
             <ThemeProvider
@@ -32,9 +34,11 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Header />
-              <main>{children}</main>
-              <Toaster />
+              <ModalProvider>
+                <Header />
+                <main>{children}</main>
+                <Toaster />
+              </ModalProvider>
             </ThemeProvider>
           </CustomerProvider>
         </AuthProvider>

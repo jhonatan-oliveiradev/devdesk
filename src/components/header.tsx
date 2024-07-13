@@ -1,15 +1,17 @@
 "use client";
 
-import { Loader2Icon, LockIcon, LogOut, User2Icon } from "lucide-react";
 import Logo from "./logo";
-import { ModeToggle } from "./mode-toggle";
-import { Button } from "./ui/button";
 import Link from "next/link";
+
+import { Button } from "./ui/button";
+import { ModeToggle } from "./mode-toggle";
 import { Separator } from "./ui/separator";
 import { signIn, signOut, useSession } from "next-auth/react";
 
+import { Loader2Icon, LogInIcon, LogOut, User2Icon } from "lucide-react";
+
 const Header = () => {
-  const { status, data } = useSession();
+  const { status } = useSession();
 
   const handleLogin = async () => await signIn();
   const handleLogout = async () => await signOut();
@@ -30,9 +32,35 @@ const Header = () => {
         )}
 
         {status === "unauthenticated" && (
-          <Button variant="ghost" size="icon" onClick={handleLogin}>
-            <LockIcon size="16" />
-          </Button>
+          <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-2">
+              <nav className="mr-10 hidden md:flex">
+                <ul className="flex items-center justify-center gap-10">
+                  <li className="transition-all hover:text-muted-foreground">
+                    <Link href="/">Início</Link>
+                  </li>
+                  <li className="transition-all hover:text-muted-foreground">
+                    <Link href="#vantagens">Vantagens</Link>
+                  </li>
+                  <li className="transition-all hover:text-muted-foreground">
+                    {" "}
+                    <Link href="#depoimentos">Depoimentos</Link>
+                  </li>
+                </ul>
+              </nav>
+              <Button
+                onClick={handleLogin}
+                className="flex items-center justify-center gap-2"
+              >
+                <LogInIcon className="size-5" />
+                Login
+              </Button>
+            </div>
+            <Separator orientation="vertical" className="h-8" />
+            <div>
+              <ModeToggle />
+            </div>
+          </div>
         )}
 
         {status === "authenticated" && (
