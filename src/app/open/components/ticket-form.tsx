@@ -22,6 +22,7 @@ import {
 
 import { Loader2 } from "lucide-react";
 import { CustomerDataInfo } from "../page";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   name: z.string().min(1, "Campo obrigatório"),
@@ -36,6 +37,8 @@ interface TicketFormProps {
 
 const TicketForm = ({ customer }: TicketFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const { toast } = useToast();
 
@@ -62,6 +65,8 @@ const TicketForm = ({ customer }: TicketFormProps) => {
         title: "Feito!",
         description: "Chamado aberto com sucesso.",
       });
+
+      router.push("/");
     }
   };
 

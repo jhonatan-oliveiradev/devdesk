@@ -1,9 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, VideoIcon } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
+
+import { signIn, useSession } from "next-auth/react";
+
+import { Button } from "@/components/ui/button";
+
+import { ArrowRight, Ticket } from "lucide-react";
 
 const Slogan = () => {
   const { status } = useSession();
@@ -66,9 +69,11 @@ const Slogan = () => {
             <ArrowRight className="size-4 transition-all group-hover:translate-x-1" />
           </Button>
         )}
-        <Button variant="secondary" className="flex items-center gap-2">
-          <VideoIcon className="size-4" />
-          Assista o vídeo
+        <Button asChild variant="secondary" className="flex items-center gap-2">
+          <Link href="/open">
+            <Ticket className="size-4" />
+            Abra um chamado
+          </Link>
         </Button>
       </div>
     </div>

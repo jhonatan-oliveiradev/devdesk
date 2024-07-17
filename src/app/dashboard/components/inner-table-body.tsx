@@ -49,7 +49,7 @@ const InnerTableBody = ({ customer, ticket }: TicketItemProps) => {
       <TableCell className="font-medium">{customer?.name}</TableCell>
       <TableCell>{ticket.createdAt?.toLocaleDateString("pt-br")}</TableCell>
       <TableCell>
-        <Badge variant={ticket.status === "ABERTO" ? "success" : "secondary"}>
+        <Badge variant={ticket.status === "ABERTO" ? "destructive" : "success"}>
           {ticket.status}
         </Badge>
       </TableCell>

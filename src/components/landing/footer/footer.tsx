@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Area } from "../../area";
 import Logo from "../../logo";
 import Socials from "./socials";
@@ -22,7 +23,13 @@ const Footer = () => {
         <Socials />
         <p className="mt-8 text-center md:mt-0">
           <span className="font-black">
-            Jhonatan Oliveira
+            <Link
+              href="https://www.jhonatanoliveira.com"
+              target="_blank"
+              className="transition-all hover:text-muted-foreground"
+            >
+              Jhonatan Oliveira
+            </Link>
             <span className="font-black text-primary">.</span>
           </span>{" "}
           ® {new Date().getFullYear()} - Todos os direitos reservados.

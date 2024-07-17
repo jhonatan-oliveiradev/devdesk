@@ -23,7 +23,9 @@ const TableContent = async () => {
 
   const tickets = await prisma.ticket.findMany({
     where: {
-      userId: session.user.id,
+      customer: {
+        userId: session.user.id,
+      },
     },
     include: {
       customer: true,
