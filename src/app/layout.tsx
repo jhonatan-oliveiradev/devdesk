@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "gerenciamento de clientes e chamados",
   ],
   openGraph: {
-    title: "bitDESK - Dashboard",
+    title: "bitDESK - Gerencie de forma inteligente",
     images: [`${process.env.NEXT_PUBLIC_URL}/logo.jpg`],
   },
   robots: {
