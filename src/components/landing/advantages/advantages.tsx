@@ -1,11 +1,9 @@
+import { Area } from "@/components/area";
 import Advantage from "./advantage";
 
 const Advantages = () => {
   return (
-    <section
-      id="#vantagens"
-      className="flex-items-center mx-auto w-full flex-col justify-center"
-    >
+    <Area id="#vantagens">
       <h2 className="text-center text-2xl font-black text-muted-foreground lg:mb-20 lg:text-4xl">
         Vantagens do{" "}
         <span>
@@ -34,7 +32,7 @@ const Advantages = () => {
         subtitle="Obtenha insights valiosos sobre o desempenho do atendimento ao cliente com relatórios detalhados e análises personalizáveis. Identifique áreas de melhoria e tome decisões informadas para elevar a qualidade do seu suporte."
         invert
       />
-    </section>
+    </Area>
   );
 };
 

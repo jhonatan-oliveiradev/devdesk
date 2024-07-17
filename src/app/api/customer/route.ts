@@ -33,6 +33,67 @@ export async function POST(request: Request) {
   }
 }
 
+// READ customers
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const customerEmail = searchParams.get("email");
+
+  if (!customerEmail || customerEmail === "") {
+    return NextResponse.json(
+      { error: "Invalid customer email" },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const customer = await prisma.customer.findFirst({
+      where: {
+        email: customerEmail,
+      },
+    });
+
+    return NextResponse.json(customer);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch customers" },
+      { status: 400 },
+    );
+  }
+}
+
+// UPDATE a customer
+export async function PUT(request: Request) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id, name, email, phone, address, userId } = await request.json();
+
+  try {
+    await prisma.customer.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        email,
+        phone,
+        address: address ? address : "",
+        userId,
+      },
+    });
+
+    return NextResponse.json({ message: "Cliente atualizado com sucesso!" });
+  } catch (err) {
+    return NextResponse.json(
+      { error: "Failed to update customer" },
+      { status: 400 },
+    );
+  }
+}
+
 // DELETE a customer
 export async function DELETE(request: Request) {
   const session = await getServerSession(authOptions);
@@ -72,39 +133,6 @@ export async function DELETE(request: Request) {
   } catch (err) {
     return NextResponse.json(
       { error: "Failed to delete customer" },
-      { status: 400 },
-    );
-  }
-}
-
-// UPDATE a customer
-export async function PUT(request: Request) {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { id, name, email, phone, address, userId } = await request.json();
-
-  try {
-    await prisma.customer.update({
-      where: {
-        id,
-      },
-      data: {
-        name,
-        email,
-        phone,
-        address: address ? address : "",
-        userId,
-      },
-    });
-
-    return NextResponse.json({ message: "Cliente atualizado com sucesso!" });
-  } catch (err) {
-    return NextResponse.json(
-      { error: "Failed to update customer" },
       { status: 400 },
     );
   }

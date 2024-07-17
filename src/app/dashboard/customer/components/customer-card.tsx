@@ -113,7 +113,11 @@ const CustomerCard = ({ customer }: { customer: CustomerModel }) => {
           </div>
         </CardContent>
         <CardFooter className="flex h-full w-full items-end justify-end">
-          <Button size="icon" onClick={() => setIsDeleting(true)}>
+          <Button
+            className="bg-rose-600 hover:bg-rose-700 hover:text-white"
+            size="icon"
+            onClick={() => setIsDeleting(true)}
+          >
             <Trash2Icon size="16" />
           </Button>
         </CardFooter>

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}

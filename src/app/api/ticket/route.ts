@@ -38,3 +38,33 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Ticket not found" }, { status: 404 });
   }
 }
+
+// Open a new ticket
+export async function POST(request: NextRequest) {
+  const { customerId, name, description } = await request.json();
+
+  if (!customerId || !name || !description) {
+    return NextResponse.json(
+      { error: "Missing required fields" },
+      { status: 400 },
+    );
+  }
+
+  try {
+    await prisma.ticket.create({
+      data: {
+        name,
+        description,
+        status: "ABERTO",
+        customerId,
+      },
+    });
+
+    return NextResponse.json({ message: "Ticket success opened." });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to create ticket" },
+      { status: 500 },
+    );
+  }
+}

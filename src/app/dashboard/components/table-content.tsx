@@ -28,6 +28,9 @@ const TableContent = async () => {
     include: {
       customer: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return (

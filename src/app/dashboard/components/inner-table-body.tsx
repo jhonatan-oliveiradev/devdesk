@@ -58,7 +58,7 @@ const InnerTableBody = ({ customer, ticket }: TicketItemProps) => {
           onClick={handleOpenTicketInfoModal}
           size="icon"
           variant="ghost"
-          className="bg-blue-600 text-white hover:bg-blue-600/80 hover:text-white"
+          className="bg-emerald-500 text-white hover:bg-emerald-600 hover:text-white"
         >
           <FileIcon size="16" />
         </Button>
