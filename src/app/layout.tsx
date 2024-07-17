@@ -14,8 +14,28 @@ import { ModalProvider } from "@/providers/modal";
 const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dev Desk - Gerenciamento",
-  description: "Gerencie seus clientes e atendimentos de forma fácil!",
+  title: "bitDESK - Gerencie de forma inteligente",
+  description:
+    "A plataforma definitiva de gerenciamento de clientes e chamados.",
+  keywords: [
+    "gerenciamento",
+    "helpdesk",
+    "gerenciamento de clientes e chamados",
+  ],
+  openGraph: {
+    title: "bitDESK - Dashboard",
+    images: [`${process.env.NEXT_PUBLIC_URL}/logo.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+    },
+  },
 };
 
 export default function RootLayout({
