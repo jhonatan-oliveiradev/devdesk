@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <header
-      className={`z-10 flex h-16 w-full items-center border-b px-2 shadow-sm ${!top && "fixed backdrop-blur-md"}`}
+      className={`z-10 flex h-16 w-full items-center border-b px-2 shadow-sm ${!top && "[&:-webkit-backdrop-filter: blur(12px)] fixed backdrop-blur-md"}`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Logo />
