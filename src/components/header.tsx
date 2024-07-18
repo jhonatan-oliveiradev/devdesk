@@ -9,15 +9,31 @@ import { Separator } from "./ui/separator";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { Loader2Icon, LogInIcon, LogOut, User2Icon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [top, setTop] = useState(true);
   const { status } = useSession();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      window.scrollY > 10 ? setTop(false) : setTop(true);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [top]);
 
   const handleLogin = async () => await signIn();
   const handleLogout = async () => await signOut();
 
   return (
-    <header className="flex h-16 w-full items-center border-b px-2 shadow-sm">
+    <header
+      className={`z-10 flex h-16 w-full items-center border-b px-2 shadow-sm ${!top && "fixed backdrop-blur-md"}`}
+    >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Logo />
 

@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { ReactNode, forwardRef } from "react";
 
 interface AreaProps {
   children: ReactNode;
@@ -6,13 +7,15 @@ interface AreaProps {
   id?: string;
 }
 
-export const Area = (props: AreaProps) => {
+export const Area = forwardRef<HTMLDivElement, AreaProps>((props, ref) => {
   return (
-    <div
+    <section
       id={props.id}
-      className={`flex w-full justify-center ${props.className ?? ""}`}
+      className={cn("flex w-full justify-center", props.className)}
     >
       <div className="w-full px-7 xl:w-[1200px] xl:px-0">{props.children}</div>
-    </div>
+    </section>
   );
-};
+});
+
+Area.displayName = "Area";

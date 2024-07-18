@@ -1,13 +1,30 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import { gsap } from "gsap";
+import { useLayoutEffect } from "react";
 interface ResponsiveImageProps {
   image: any;
   className?: string;
+  id?: string;
 }
 
 const ResponsiveImage = (props: ResponsiveImageProps) => {
+  useLayoutEffect(() => {
+    gsap.to("#responsive-img", {
+      x: 0,
+      rotate: "3deg",
+      opacity: 1,
+    });
+
+    return () => {
+      gsap.killTweensOf("#responsive-img");
+    };
+  }, []);
+
   return (
     <Image
+      id="responsive-img"
       src={props.image}
       width={0}
       height={0}

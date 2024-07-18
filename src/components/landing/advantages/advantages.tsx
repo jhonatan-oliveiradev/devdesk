@@ -1,9 +1,28 @@
+"use client";
+
+import { useLayoutEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { Area } from "@/components/area";
 import Advantage from "./advantage";
 
 const Advantages = () => {
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to("#vantagens", {
+      y: 0,
+      opacity: 1,
+    });
+
+    return () => {
+      gsap.killTweensOf("#vantagens");
+    };
+  }, []);
+
   return (
-    <Area id="#vantagens">
+    <Area id="vantagens" className="translate-y-20 opacity-0">
       <h2 className="text-center text-2xl font-black text-muted-foreground lg:mb-20 lg:text-4xl">
         Vantagens do{" "}
         <span>

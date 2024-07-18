@@ -10,6 +10,7 @@ export interface AdvantageProps {
 const Advantage = (props: AdvantageProps) => {
   return (
     <div
+      id="adv-item"
       className={`flex w-full flex-col items-center justify-around gap-24 py-20 ${props.invert ? "sm:flex-row-reverse" : "sm:flex-row"}`}
     >
       <ResponsiveImage

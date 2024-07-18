@@ -8,7 +8,7 @@ import Footer from "@/components/landing/footer/footer";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className="flex min-h-screen flex-col items-center justify-center overflow-x-hidden">
       <Hero />
       <Brands />
       <Advantages />

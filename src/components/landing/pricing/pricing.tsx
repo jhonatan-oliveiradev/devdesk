@@ -1,7 +1,102 @@
+// import { useLayoutEffect, useRef } from "react";
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { Area } from "@/components/area";
 import Plan from "./plan";
 
+//gsap.registerPlugin(ScrollTrigger);
+
 const Pricing = () => {
+  // const pricingItem1Ref = useRef(null);
+  // const pricingItem2Ref = useRef(null);
+  // const pricingItem3Ref = useRef(null);
+  // const sectionRef = useRef(null);
+
+  // const section = sectionRef.current;
+
+  // useLayoutEffect(() => {
+  //   const pricingItem1 = pricingItem1Ref.current;
+  //   const pricingItem2 = pricingItem2Ref.current;
+  //   const pricingItem3 = pricingItem3Ref.current;
+
+  //   gsap.fromTo(
+  //     pricingItem1,
+  //     {
+  //       opacity: 0,
+  //       scale: 0.5,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       scale: 1,
+  //       duration: 1,
+  //       ease: "power5.out",
+  //     },
+  //   );
+
+  //   gsap.fromTo(
+  //     pricingItem2,
+  //     {
+  //       opacity: 0,
+  //       y: 100,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       y: 0,
+  //       duration: 1,
+  //       scrollTrigger: {
+  //         trigger: section,
+  //         start: "65% center",
+  //       },
+  //     },
+  //   );
+
+  //   gsap.fromTo(
+  //     pricingItem3,
+  //     {
+  //       opacity: 0,
+  //       y: 100,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       y: 0,
+  //       duration: 1,
+  //       scrollTrigger: {
+  //         trigger: section,
+  //         start: "65% center",
+  //       },
+  //     },
+  //   );
+
+  //   function animateCards(images: null[], position: number) {
+  //     gsap.fromTo(
+  //       images,
+  //       {
+  //         opacity: 0,
+  //         x: position,
+  //       },
+  //       {
+  //         opacity: 1,
+  //         x: 0,
+  //         duration: 0.5,
+  //         stagger: 0.1,
+  //         scrollTrigger: {
+  //           trigger: section,
+  //           start: "center center",
+  //         },
+  //       },
+  //     );
+  //   }
+
+  //   const centralCard = [pricingItem1];
+  //   const leftCard = [pricingItem2];
+  //   const rightCard = [pricingItem3];
+
+  //   animateCards(centralCard, 0);
+  //   animateCards(leftCard, -50);
+  //   animateCards(rightCard, 50);
+  // }, [section]);
+
   return (
     <Area className="bg-gradient-to-b from-background via-primary/40 to-background py-20">
       <div className="mb-20 space-y-2 text-center">

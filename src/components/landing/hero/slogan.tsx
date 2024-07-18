@@ -1,8 +1,10 @@
 "use client";
 
-import Link from "next/link";
-
 import { signIn, useSession } from "next-auth/react";
+
+import { useLayoutEffect } from "react";
+import Link from "next/link";
+import { gsap } from "gsap";
 
 import { Button } from "@/components/ui/button";
 
@@ -13,9 +15,28 @@ const Slogan = () => {
 
   const handleLogin = async () => await signIn();
 
+  useLayoutEffect(() => {
+    gsap.to("#slogan", {
+      x: 0,
+      opacity: 1,
+    });
+
+    gsap.to("#tagline", {
+      x: 0,
+      opacity: 1,
+    });
+
+    return () => {
+      gsap.killTweensOf("#slogan", "#tagline");
+    };
+  }, []);
+
   function renderPhrase() {
     return (
-      <div className="flex flex-col items-center text-4xl font-light md:items-start lg:text-6xl">
+      <div
+        id="slogan"
+        className="flex -translate-x-20 flex-col items-center text-4xl font-light opacity-0 md:items-start lg:text-6xl"
+      >
         <div className="flex gap-2.5">
           <div className="relative">
             <span className="absolute bottom-1 left-0 w-full -rotate-2 border-b-8 border-primary" />
@@ -42,7 +63,10 @@ const Slogan = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center gap-5">
+    <div
+      id="tagline"
+      className="flex -translate-x-20 flex-col justify-center gap-5 opacity-0"
+    >
       {renderPhrase()}
       <div className="text-center text-sm font-thin sm:text-left lg:text-lg">
         <h2 className="mb-4 text-muted-foreground">

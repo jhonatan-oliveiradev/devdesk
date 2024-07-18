@@ -10,7 +10,7 @@ const Hero = () => {
         <Slogan />
         <ResponsiveImage
           image="/hero-image.jpg"
-          className="hidden rotate-3 md:inline"
+          className="hidden translate-x-20 -rotate-3 opacity-0 md:inline"
         />
       </div>
     </Area>

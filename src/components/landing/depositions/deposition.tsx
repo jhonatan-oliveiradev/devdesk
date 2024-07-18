@@ -1,5 +1,7 @@
+import { forwardRef } from "react";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface DepositionProps {
   avatar: string;
@@ -7,12 +9,17 @@ interface DepositionProps {
   title: string;
   text: string;
   emphasis?: boolean;
+  className?: string;
 }
 
-const Deposition = (props: DepositionProps) => {
+const Deposition = forwardRef<HTMLDivElement, DepositionProps>((props, ref) => {
   return (
     <div
-      className={`flex h-[350px] w-[350px] flex-col items-center justify-center gap-3 rounded-xl bg-background p-7 shadow-xl ${props.emphasis && "xl:h-[380px]"}`}
+      ref={ref}
+      className={cn(
+        `flex h-[350px] w-[350px] flex-col items-center justify-center gap-3 rounded-xl bg-background p-7 shadow-xl ${props.emphasis && "xl:h-[380px]"}`,
+        props.className,
+      )}
     >
       <Image
         src={props.avatar}
@@ -37,6 +44,8 @@ const Deposition = (props: DepositionProps) => {
       </div>
     </div>
   );
-};
+});
+
+Deposition.displayName = "Deposition";
 
 export default Deposition;
